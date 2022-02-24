@@ -1,0 +1,554 @@
+directive @cacheControl(maxAge: Int, scope: CacheControlScope) on FIELD_DEFINITION | OBJECT | INTERFACE
+
+type affiliateInfo {
+  name: String!
+}
+
+type AgeBand {
+  adult: Boolean!
+  ageFrom: Int!
+  ageTo: Int!
+  bandId: Int!
+  count: Int!
+  description: String!
+  pluralDescription: String!
+  sortOrder: Int!
+  treatAsAdult: Boolean!
+}
+
+input AttendeesDataType {
+  ageFrom: Int!
+  ageTo: Int!
+  bandId: Int
+  treatAsAdult: Boolean!
+  count: Int!
+}
+
+type AvailableDate {
+  date: String!
+  price: Float!
+}
+
+input AverageRatingInput {
+  gte: Float
+  lt: Float
+}
+
+enum CacheControlScope {
+  PUBLIC
+  PRIVATE
+}
+
+type CancellationPolicy {
+  dayRangeMin: Int
+  dayRangeMax: Int
+  percentageRefundable: Int
+}
+
+enum Categories {
+  ATTRACTION
+  CULTURE_EDUCATION
+  ENTERTAINMENT
+  FOOD_DRINK
+  WELLNESS
+  OUTDOORS_LAND
+  OUTDOORS_WATER
+  TRANSPORT
+}
+
+type CodegenBookingInfo {
+  id: String
+  cityId: String
+}
+
+input Coordinates {
+  latitude: Float!
+  longitude: Float!
+  radius: Float!
+  unit: DistanceUnits
+}
+
+enum CT_SELECTS {
+  RECOMMENDED
+  WE_LOVE
+}
+
+type CTPriceBreakdown {
+  count: Int!
+  treatAsAdult: Boolean!
+  price: Float!
+}
+
+type CTTourGrade {
+  title: String!
+  description: String!
+  gradeCode: String!
+  currencyCode: String!
+  choiceKey: String!
+  price: Float!
+  available: Boolean!
+  departureTimes: [CTTourGradeDepartureTime!]
+}
+
+type CTTourGradeDepartureTime {
+  time: String
+  available: Boolean
+  gradeCode: String!
+  price: Float
+  choiceKey: String!
+  priceBreakdown: [CTPriceBreakdown!]
+}
+
+enum CurationStatus {
+  PENDING
+  REJECTED
+  ALLOWED
+}
+
+enum CurationStatusEnum {
+  PENDING
+  REJECTED
+  ALLOWED
+}
+
+enum CurrencyCode {
+  AUD
+  CAD
+  EUR
+  GBP
+  NZD
+  USD
+}
+
+enum DistanceUnits {
+  METER
+  KILOMETERS
+  MILES
+  FEET
+}
+
+input DurationInput {
+  gte: Int
+  lte: Int
+}
+
+enum DurationType {
+  HALF_DAY
+  FULL_DAY
+  MULTI_DAY_TRIP
+  FLEXIBLE
+}
+
+type Experience {
+  _id: ID
+  additionalInfo: [String!]
+  affiliateBookingUrl: String
+  ageBands: [AgeBand!]
+  attractionIds: [Int!]
+  availabilityCalendar(currency: CurrencyCode = GBP, fromDate: String, toDate: String): [AvailableDate!]
+  averageRating: Float
+  cancellationPolicy: ProviderCancellationPolicy!
+  categories: [String!]
+  ctSelects: [String!]
+  city: String!
+  codegenBookingInfo: CodegenBookingInfo!
+  continent: String
+  country: String
+  curationStatus: CurationStatus!
+  departurePoint: String!
+  description: String!
+  duration: String!
+  durationInMinutes: Int!
+  durationType: String!
+  exclusions: [String!]
+  features: [String!]
+  hash: String!
+  images: [Image!]
+  inclusions: [String!]
+  isArchived: Boolean!
+  location: Location
+  locationKGID: String
+  locationPath: String
+  mainImage: Image!
+  maxAttendeeCount: Int!
+  minAttendeeCount: Int!
+  pageViews: Float
+  priceByCurrency: PriceByCurrency!
+  priceCurrencyCode: CurrencyCode!
+  priceFrom: Float!
+  providerName: ProviderName!
+  providerCategories: [ProviderCategory!]
+  providerSubCategories: [ProviderCategory!]
+  providerExperienceId: String!
+  returnDetails: String!
+  reviewCount: Int!
+  reviews(limit: Int, skip: Int): [Review!]
+  region: String
+  shortDescription: String!
+  similarExperiences(limit: Int = 6): [Experience!]
+  similarDSExperiences(limit: Int = 8): [SimilarDSExperience!]!
+  slug: String!
+  startTime: String
+  termsAndConditions: String
+  title: String!
+  types: [String!]
+  voucherOption: VoucherOption
+  wordpressId: String
+  distance: Float
+  locationHierarchy: LocationHierarchy
+  ratingCounts: [RatingCount!]
+  isOnline: Boolean
+  startLocation: LocationInfo
+  endLocation: LocationInfo
+}
+
+type ExperiencesAvailabilityResult {
+  experiencesIds: [String!]
+}
+
+enum Features {
+  KID_FRIENDLY
+  LUXURY_SPECIAL_OCCASIONS
+  PRIVATE_CUSTOM_TOURS
+  UNIQUE_EXPERIENCES
+  HOLIDAY_SEASONAL_TOURS
+  HOP_ON_OFF_TOURS
+  SKIP_THE_LINE
+  PROMOTIONS
+  NIGHTLIFE
+  ROMANTIC
+  HORROR
+  ADRENALINE
+  LOCAL
+  DIVERSITY
+  ECO
+  THEATRE
+}
+
+type Hierarchy {
+  country: LocationHierarchyItem
+  city: LocationHierarchyItem
+}
+
+type HierarichalTaxonomy {
+  label: String!
+  parent: String!
+  parentType: String!
+}
+
+type Image {
+  url: String!
+  thumbnailUrl: String!
+}
+
+type ItemExperiences {
+  itemId: Int!
+  experiencesData: [ViatorExperienceData!]
+}
+
+type Location {
+  startCoordinates: Point
+  endCoordinates: Point
+}
+
+type LocationHierarchy {
+  hierarchyPath: String
+  hierarchy: Hierarchy
+}
+
+type LocationHierarchyItem {
+  name: String
+  href: String
+}
+
+type LocationInfo {
+  coordinates: Point
+  address: String
+  name: String
+}
+
+type Point {
+  latitude: Float!
+  longitude: Float!
+}
+
+type PriceByCurrency {
+  USD: Float!
+  EUR: Float!
+  GBP: Float!
+  AUD: Float!
+  CAD: Float!
+  NZD: Float!
+}
+
+input PriceFromInput {
+  gte: Int
+  lte: Int
+  currency: CurrencyCode!
+}
+
+type ProviderCancellationPolicy {
+  cancellable: Boolean
+  merchantTermsAndConditionsType: Int
+  policies: [CancellationPolicy!]
+  termsAndConditions: String
+}
+
+type ProviderCategory {
+  id: Int!
+  name: String!
+}
+
+enum ProviderName {
+  VIATOR
+  LIVN
+  REZGO
+}
+
+type Query {
+  experience(idOrSlug: String!, onlyAllowed: Boolean = true, onlyNonArchived: Boolean = true): Experience
+  experiences(averageRating: AverageRatingInput, cancellable: Boolean, duration: DurationInput, skip: Int = 0, limit: Int = 100, countries: [String!], cities: [String!], categories: [Categories!], features: [Features!], providerCategory: String, providerSubCategories: String, locationKGIDs: [String!], ids: [String!], priceFrom: PriceFromInput, title: String, types: [Types!], coordinates: Coordinates, onlyAllowed: Boolean = true, onlyNonArchived: Boolean = true, updatedSince: String, isOnline: Boolean, durationType: DurationType, providerName: ProviderName, region: String, CT_Selects: [CT_SELECTS!], onlyCodegenMapped: Boolean): [Experience!]
+
+  """Returns the experience IDs that are available on the given time range."""
+  experiencesAvailability(
+    """The list of experience IDs."""
+    experienceIds: [String!]!
+
+    """The starting date. The expected date format is YYY-MM-DD."""
+    fromDate: String!
+
+    """The end date. The expected date format is YYYY-MM-DD."""
+    toDate: String!
+  ): ExperiencesAvailabilityResult
+  viatorExperience(id: ID!, currency: String = "USD"): ViatorExperienceData
+  viatorExperiences(skip: Int = 0, limit: Int = 100, currency: String = "USD", countries: [String!], cities: [String!], codes: [String!], title: String): [ViatorExperienceData!]
+  tourGrades(currency: String = "USD", codegenId: String!, date: String!, attendees: [AttendeesDataType!]!): [CTTourGrade]
+  taxonomy: Taxonomy
+}
+
+type RatingCount {
+  rating: Int
+  count: Int
+}
+
+type Review {
+  ownerCountry: String
+  ownerName: String
+  publishedDate: String
+  rating: Float
+  review: String
+  sortOrder: Int
+}
+
+type SimilarDSExperience {
+  score: Float!
+  experience: Experience!
+}
+
+type Taxonomy {
+  categories: [TaxonomyMap]
+  features: [TaxonomyMap]
+  types: [TaxonomyMap]
+  durationTypes: [TaxonomyMap]
+  providerCategories: [HierarichalTaxonomy]
+  providerSubCategories: [HierarichalTaxonomy]
+}
+
+type TaxonomyMap {
+  label: String!
+}
+
+enum Types {
+  ADMISSION_TICKET
+  CLASSES
+  EVENTS
+  TOURS
+  ACTIVITIES
+  SESSION_TALKS
+  TRANSFERS
+  SHORE_EXCURSIONS
+}
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
+
+type ViatorAgeBands {
+  adult: Boolean!
+  ageFrom: Int!
+  ageTo: Int!
+  bandId: Int!
+  count: Int!
+  description: String!
+  pluralDescription: String!
+  sortOrder: Int!
+  treatAsAdult: Boolean!
+}
+
+type ViatorCategoryType {
+  sortOrder: Int!
+  thumbnailURL: String
+  productCount: String
+  groupName: String
+  groupUrlName: String
+  id: Int
+  subcategories: [ViatorSubCategory!]
+}
+
+type ViatorCountExperiencesResponse {
+  total: Int
+}
+
+type ViatorExperienceCategory {
+  id: Int!
+  name: String!
+}
+
+type ViatorExperienceData {
+  additionalInfo: [String!]!
+  admission: String
+  affiliateInfo: affiliateInfo!
+  ageBands: [ViatorAgeBands!]!
+  allTravellerNamesRequired: Boolean
+  available: Boolean!
+  bookingEngineId: String!
+  categories: [ViatorExperienceCategory]!
+  catIds: [Int!]
+  city: String!
+  cityCodeGenCode: String
+  code: String!
+  codeGenCode: String
+  country: String
+  currencyCode: String!
+  curationStatus: CurationStatusEnum!
+  departurePoint: String!
+  departureTime: String
+  departureTimeComments: String!
+  description: String
+  destinationId: Int!
+  duration: String!
+  essential: String
+  exclusions: [String]!
+  hotelPickup: Boolean!
+  inclusions: [String]!
+  itinerary: String!
+  location: String!
+  maxTravellerCount: Int!
+  merchantCancellable: Boolean!
+  merchantNetPriceFrom: Float!
+  merchantNetPriceFromFormatted: String!
+  onSale: Boolean!
+  operates: String!
+  panoramaCount: Int!
+  pas: String
+  passengerAttributes: [ViatorPAssengerAttributes!]
+  photoCount: Int!
+  price: Float!
+  primaryDestinationId: Int
+  primaryDestinationName: String
+  primaryDestinationUrlName: String
+  primaryGroupId: String
+  productPhotos: [ViatorPhotoType!]
+  productUrlName: String!
+  rating: Float!
+  region: String
+  returnDetails: String!
+  reviewCount: Int
+  reviews: [ViatorReviewsType]
+  rrp: Float!
+  rrpformatted: String
+  salesPoints: [String]!
+  savingAmount: Float!
+  savingAmountFormated: String!
+  shortDescription: String
+  shortTitle: String
+  slug: String!
+  sortOrder: Int
+  specialOffer: String!
+  specialOfferAvailable: Boolean
+  specialReservation: Boolean
+  specialReservationDetails: String
+  sslSupported: Boolean
+  subCategories: [ViatorExperienceCategory]!
+  subCatIds: [Int!]
+  supplierCode: String!
+  supplierName: String
+  termsAndConditions: String!
+  thumbnailHiResURL: String!
+  thumbnailURL: String!
+  title: String!
+  tourGrades: [ViatorTourGradeType!]
+  tourGradesAvailable: Boolean!
+  translationLevel: Int!
+  uniqueShortDescription: String
+  videoCount: Int
+  voucherOption: String!
+  voucherRequirements: String!
+  webURL: String!
+  wordpressId: String
+  similarExperiences(limit: Int = 6): [ViatorExperienceData!]
+}
+
+type ViatorPAssengerAttributes {
+  required: Boolean
+  questionId: String
+  title: String
+  errorMissingMessage: String
+  errorValidationMessage: String
+  validateType: String
+  customAttribute_kg: String
+  customAttribute_lb: String
+}
+
+type ViatorPhotoType {
+  photoURL: String
+  supplier: String
+  caption: String
+}
+
+type ViatorReviewsType {
+  sortOrder: Int
+  ownerName: String!
+  ownerCountry: String
+  productTitle: String!
+  productUrlName: String
+  ownerAvatarURL: String
+  sslSupported: Boolean
+  reviewId: Int!
+  productCode: String!
+  submissionDate: String!
+  rating: Float!
+  review: String!
+  viatorNotes: String!
+  publishedDate: String!
+  ownerId: Int!
+  viatorFeedback: String!
+}
+
+type ViatorSubCategory {
+  sortOrder: Int
+  categoryId: Int
+  subcategoryId: Int
+  subcategoryName: String
+  subcategoryUrlName: String
+}
+
+type ViatorTourGradeType {
+  sortOrder: Int
+  currencyCode: String
+  gradeCode: String
+  merchantNetPriceFrom: Float
+  priceFrom: Float
+  priceFromFormatted: String
+  merchantNetPriceFromFormatted: String
+  gradeTitle: String
+  gradeDepartureTime: String
+  gradeDescription: String
+  defaultLanguageCode: String
+}
+
+enum VoucherOption {
+  VOUCHER_ID_ONLY
+  VOUCHER_PAPER_ONLY
+  VOUCHER_E
+}
+
