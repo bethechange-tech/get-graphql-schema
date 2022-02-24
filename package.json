@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "generate:{service-name}": "get-graphql-schema {ENDPOINT} > schema.graphql",
+    "package:install": "npm i get-graphql-schema"
   },
   "keywords": [],
   "author": "",
